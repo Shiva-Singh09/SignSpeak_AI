@@ -59,58 +59,6 @@ def create_csv_headers():
     return headers
 
 
-def save_sample(rows):
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-    file_exists = OUTPUT_PATH.exists() and OUTPUT_PATH.stat().st_size > 0
-
-    with open(OUTPUT_PATH, "a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-
-        if not file_exists:
-            writer.writerow(create_csv_headers())
-
-        writer.writerows(rows)
-
-    print(f"\nSaved {len(rows)} frames to: {OUTPUT_PATH}")
-
-
-# --------------------------------------------------
-# LANDMARK EXTRACTION
-# --------------------------------------------------
-
-def extract_frame_data(result):
-    hand_data = {
-        "left": [0.0] * 63,
-        "right": [0.0] * 63
-    }
-
-    detected_hands = len(result.hand_landmarks)
-
-    for index, landmarks in enumerate(result.hand_landmarks):
-        # MediaPipe handedness is aligned with detected hands.
-        # The input frame is mirrored before processing.
-        side = "unknown"
-
-        if index < len(result.handedness) and result.handedness[index]:
-            side = result.handedness[index][0].category_name.lower()
-
-        if side not in ("left", "right"):
-            side = "left" if index == 0 else "right"
-
-        values = []
-
-        for landmark in landmarks:
-            values.extend([
-                float(landmark.x),
-                float(landmark.y),
-                float(landmark.z)
-            ])
-
-        hand_data[side] = values
-
-    return detected_hands, hand_data
-
 
 # --------------------------------------------------
 # MAIN PROGRAM
