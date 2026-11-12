@@ -23,12 +23,8 @@ for split in splits:
         if not reader.fieldnames:
             raise ValueError(f"Missing CSV header: {input_file}")
 
-        with output_file.open(
-            "w", encoding="utf-8", newline=""
-        ) as fout:
-            writer = csv.DictWriter(
-                fout, fieldnames=reader.fieldnames
-            )
+        with output_file.open("w", encoding="utf-8", newline="") as fout:
+            writer = csv.DictWriter(fout, fieldnames=reader.fieldnames)
             writer.writeheader()
 
             for row in reader:

@@ -120,14 +120,9 @@ with mp.tasks.vision.HandLandmarker.create_from_options(options) as detector:
                         processed += 1
                         continue
 
-                    rgb = cv2.cvtColor(
-                        image, cv2.COLOR_BGR2RGB
-                    )
+                    rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-                    mp_image = mp.Image(
-                        image_format=mp.ImageFormat.SRGB,
-                        data=rgb
-                    )
+                    mp_image = mp.Image(image_format=mp.ImageFormat.SRGB,data=rgb)
 
                     result = detector.detect(mp_image)
 
@@ -143,9 +138,7 @@ with mp.tasks.vision.HandLandmarker.create_from_options(options) as detector:
                         hand_counts.get(count, 0) + 1
                     )
 
-                    for hand_index, landmarks in enumerate(
-                        result.hand_landmarks[:2]
-                    ):
+                    for hand_index, landmarks in enumerate(result.hand_landmarks[:2]):
                         category = result.handedness[hand_index][0]
 
                         row[f"hand_{hand_index}_category"] = (
@@ -155,9 +148,7 @@ with mp.tasks.vision.HandLandmarker.create_from_options(options) as detector:
                             round(category.score, 5)
                         )
 
-                        for point_index, landmark in enumerate(
-                            landmarks
-                        ):
+                        for point_index, landmark in enumerate(landmarks):
                             row[
                                 f"hand_{hand_index}_{point_index:02d}_x"
                             ] = landmark.x
@@ -174,9 +165,7 @@ with mp.tasks.vision.HandLandmarker.create_from_options(options) as detector:
                     processed += 1
 
                     if processed % 250 == 0:
-                        print(
-                            f"{split}: {processed} images processed"
-                        )
+                        print(f"{split}: {processed} images processed")
 
         total_processed += processed
         total_detected += detected
