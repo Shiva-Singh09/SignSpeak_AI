@@ -121,23 +121,15 @@ print("Validation shape:", x_val.shape)
 
 COORDINATE_FEATURES = 126
 
-mean = x_train[:, :COORDINATE_FEATURES].mean(
-    axis=0, keepdims=True
-)
+mean = x_train[:, :COORDINATE_FEATURES].mean(axis=0, keepdims=True)
 
-std = x_train[:, :COORDINATE_FEATURES].std(
-    axis=0, keepdims=True
-)
+std = x_train[:, :COORDINATE_FEATURES].std(axis=0, keepdims=True)
 
 std = np.maximum(std, 1e-6)
 
-x_train[:, :COORDINATE_FEATURES] = (
-    x_train[:, :COORDINATE_FEATURES] - mean
-) / std
+x_train[:, :COORDINATE_FEATURES] = (x_train[:, :COORDINATE_FEATURES] - mean) / std
 
-x_val[:, :COORDINATE_FEATURES] = (
-    x_val[:, :COORDINATE_FEATURES] - mean
-) / std
+x_val[:, :COORDINATE_FEATURES] = (x_val[:, :COORDINATE_FEATURES] - mean) / std
 
 # Store the scaler for later webcam inference.
 scaler_mean = mean.astype(np.float32).flatten()
@@ -148,31 +140,13 @@ scaler_std = std.astype(np.float32).flatten()
 # Convert to PyTorch tensors
 # --------------------------------------------------
 
-train_dataset = TensorDataset(
-    torch.from_numpy(x_train),
-    torch.from_numpy(y_train)
-)
+train_dataset = TensorDataset(torch.from_numpy(x_train),torch.from_numpy(y_train))
 
-val_dataset = TensorDataset(
-    torch.from_numpy(x_val),
-    torch.from_numpy(y_val)
-)
+val_dataset = TensorDataset(torch.from_numpy(x_val),torch.from_numpy(y_val))
 
-train_loader = DataLoader(
-    train_dataset,
-    batch_size=BATCH_SIZE,
-    shuffle=True,
-    num_workers=0,
-    pin_memory=(DEVICE.type == "cuda")
-)
+train_loader = DataLoader(train_dataset,batch_size=BATCH_SIZE,shuffle=True,num_workers=0,pin_memory=(DEVICE.type == "cuda"))
 
-val_loader = DataLoader(
-    val_dataset,
-    batch_size=BATCH_SIZE,
-    shuffle=False,
-    num_workers=0,
-    pin_memory=(DEVICE.type == "cuda")
-)
+val_loader = DataLoader(val_dataset,batch_size=BATCH_SIZE,shuffle=False,num_workers=0,pin_memory=(DEVICE.type == "cuda"))
 
 
 # --------------------------------------------------
@@ -336,10 +310,7 @@ for epoch in range(1, MAX_EPOCHS + 1):
         epochs_without_improvement += 1
 
     if epochs_without_improvement >= PATIENCE:
-        print(
-            f"\nEarly stopping at epoch {epoch}. "
-            f"Best epoch: {best_epoch}"
-        )
+        print(f"\nEarly stopping at epoch {epoch}. "f"Best epoch: {best_epoch}")
         break
 
 
@@ -351,16 +322,7 @@ with HISTORY_PATH.open(
     "w", encoding="utf-8", newline=""
 ) as file:
 
-    writer = csv.DictWriter(
-        file,
-        fieldnames=[
-            "epoch",
-            "train_loss",
-            "train_accuracy",
-            "validation_loss",
-            "validation_accuracy",
-        ]
-    )
+    writer = csv.DictWriter(file,fieldnames=["epoch","train_loss","train_accuracy","validation_loss","validation_accuracy",])
 
     writer.writeheader()
     writer.writerows(history)
