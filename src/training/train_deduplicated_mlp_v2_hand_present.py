@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import copy
 import random
@@ -11,19 +10,11 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 
-# ============================================================
 # CONFIGURATION
-# ============================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-DATA_DIR = (
-    PROJECT_ROOT
-    / "dataset"
-    / "processed"
-    / "realsign_deduplicated"
-    / "features_hand_present"
-)
+DATA_DIR = (PROJECT_ROOT/ "dataset"/ "processed"/ "realsign_deduplicated"/ "features_hand_present")
 
 MODEL_DIR = PROJECT_ROOT / "models"
 REPORT_DIR = PROJECT_ROOT / "outputs" / "reports"
@@ -42,9 +33,7 @@ EXPECTED_FEATURES = 132
 COORDINATE_FEATURES = 126
 
 
-# ============================================================
 # REPRODUCIBILITY
-# ============================================================
 
 def set_seed(seed):
     random.seed(seed)
@@ -55,9 +44,7 @@ def set_seed(seed):
         torch.cuda.manual_seed_all(seed)
 
 
-# ============================================================
 # MODEL
-# ============================================================
 
 class SignSpeakMLP(nn.Module):
 
@@ -82,9 +69,7 @@ class SignSpeakMLP(nn.Module):
         return self.network(x)
 
 
-# ============================================================
 # DATA LOADING
-# ============================================================
 
 def load_split(split):
 
@@ -119,24 +104,18 @@ def load_split(split):
     return X, y_labels, feature_columns
 
 
-# ============================================================
 # FEATURE STANDARDIZATION
-# ============================================================
 
 def standardize_features(X, mean, std):
 
     X = X.copy()
 
-    X[:, :COORDINATE_FEATURES] = (
-        X[:, :COORDINATE_FEATURES] - mean
-    ) / std
+    X[:, :COORDINATE_FEATURES] = (X[:, :COORDINATE_FEATURES] - mean) / std
 
     return X
 
 
-# ============================================================
 # EVALUATION
-# ============================================================
 
 def evaluate(model, loader, criterion, device):
 
@@ -166,9 +145,7 @@ def evaluate(model, loader, criterion, device):
     return total_loss / total, correct / total
 
 
-# ============================================================
 # MAIN
-# ============================================================
 
 def main():
 
@@ -181,18 +158,14 @@ def main():
     print("SIGNSPEAK - HAND-PRESENT DEDUPLICATED MLP V2")
     print("=" * 65)
 
-    device = torch.device(
-        "cuda" if torch.cuda.is_available() else "cpu"
-    )
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print(f"\nDevice: {device}")
 
     if device.type == "cuda":
         print(f"GPU: {torch.cuda.get_device_name(0)}")
 
-    # --------------------------------------------------------
     # LOAD DATA
-    # --------------------------------------------------------
 
     print("\n[1/5] LOADING DATA")
 
@@ -215,24 +188,16 @@ def main():
         for index, label in enumerate(classes)
     }
 
-    y_train = np.array(
-        [class_to_index[label] for label in y_train_labels],
-        dtype=np.int64
-    )
+    y_train = np.array([class_to_index[label] for label in y_train_labels],dtype=np.int64)
 
-    y_val = np.array(
-        [class_to_index[label] for label in y_val_labels],
-        dtype=np.int64
-    )
+    y_val = np.array([class_to_index[label] for label in y_val_labels],dtype=np.int64)
 
     print(f"Training samples:   {len(X_train)}")
     print(f"Validation samples: {len(X_val)}")
     print(f"Features:           {X_train.shape[1]}")
     print(f"Classes:            {len(classes)}")
 
-    # --------------------------------------------------------
     # STANDARDIZATION
-    # --------------------------------------------------------
 
     print("\n[2/5] STANDARDIZING COORDINATE FEATURES")
 
@@ -245,9 +210,7 @@ def main():
     X_train = standardize_features(X_train, mean, std)
     X_val = standardize_features(X_val, mean, std)
 
-    # --------------------------------------------------------
     # DATA LOADERS
-    # --------------------------------------------------------
 
     train_dataset = TensorDataset(
         torch.tensor(X_train, dtype=torch.float32),
@@ -277,16 +240,11 @@ def main():
         num_workers=0
     )
 
-    # --------------------------------------------------------
     # MODEL SETUP
-    # --------------------------------------------------------
 
     print("\n[3/5] INITIALIZING MODEL")
 
-    model = SignSpeakMLP(
-        input_size=EXPECTED_FEATURES,
-        num_classes=len(classes)
-    ).to(device)
+    model = SignSpeakMLP(input_size=EXPECTED_FEATURES,num_classes=len(classes)).to(device)
 
     total_parameters = sum(
         parameter.numel()
@@ -297,15 +255,9 @@ def main():
 
     criterion = nn.CrossEntropyLoss()
 
-    optimizer = torch.optim.AdamW(
-        model.parameters(),
-        lr=LEARNING_RATE,
-        weight_decay=WEIGHT_DECAY
-    )
+    optimizer = torch.optim.AdamW(model.parameters(),lr=LEARNING_RATE,weight_decay=WEIGHT_DECAY    )
 
-    # --------------------------------------------------------
     # TRAINING
-    # --------------------------------------------------------
 
     print("\n[4/5] TRAINING")
 
@@ -343,21 +295,14 @@ def main():
 
             predictions = logits.argmax(dim=1)
 
-            train_correct += (
-                predictions == labels
-            ).sum().item()
+            train_correct += (predictions == labels).sum().item()
 
             train_total += labels.size(0)
 
         train_loss = train_loss_total / train_total
         train_accuracy = train_correct / train_total
 
-        val_loss, val_accuracy = evaluate(
-            model,
-            val_loader,
-            criterion,
-            device
-        )
+        val_loss, val_accuracy = evaluate(model,val_loader,criterion,device)
 
         history.append({
             "epoch": epoch,
@@ -398,9 +343,7 @@ def main():
 
             break
 
-    # --------------------------------------------------------
     # SAVE MODEL AND HISTORY
-    # --------------------------------------------------------
 
     print("\n[5/5] SAVING RESULTS")
 

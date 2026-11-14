@@ -71,10 +71,7 @@ def load_csv(path, class_to_idx=None):
         feature_names = reader.fieldnames[2:]
 
         if len(feature_names) != INPUT_FEATURES:
-            raise ValueError(
-                f"Expected {INPUT_FEATURES} features, "
-                f"found {len(feature_names)}"
-            )
+            raise ValueError(f"Expected {INPUT_FEATURES} features, "f"found {len(feature_names)}"            )
 
         for row in reader:
             label = row["label"]
@@ -177,9 +174,7 @@ def main():
 
     set_seed(SEED)
 
-    device = torch.device(
-        "cuda" if torch.cuda.is_available() else "cpu"
-    )
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     print("=" * 65)
     print("SIGNSPEAK - DEDUPLICATED DATASET MLP TRAINING V1")
@@ -199,9 +194,7 @@ def main():
     classes = sorted(set(train_labels))
 
     if len(classes) != NUM_CLASSES:
-        raise ValueError(
-            f"Expected 26 classes, found {len(classes)}"
-        )
+        raise ValueError(f"Expected 26 classes, found {len(classes)}")
 
     class_to_idx = {
         label: index
@@ -217,10 +210,7 @@ def main():
     # Load validation data
     # --------------------------------------------------------
 
-    X_val_raw, y_val = load_csv(
-        VAL_FILE,
-        class_to_idx
-    )
+    X_val_raw, y_val = load_csv(VAL_FILE,class_to_idx)
 
     if X_train_raw.shape[1] != INPUT_FEATURES:
         raise ValueError("Training feature dimension mismatch")
@@ -241,26 +231,18 @@ def main():
     # Presence and handedness flags remain unchanged.
     # --------------------------------------------------------
 
-    scaler_mean = X_train_raw[:, :COORDINATE_FEATURES].mean(
-        axis=0
-    )
+    scaler_mean = X_train_raw[:, :COORDINATE_FEATURES].mean(axis=0)
 
-    scaler_std = X_train_raw[:, :COORDINATE_FEATURES].std(
-        axis=0
-    )
+    scaler_std = X_train_raw[:, :COORDINATE_FEATURES].std(axis=0)
 
     scaler_std[scaler_std < 1e-8] = 1.0
 
     X_train = X_train_raw.copy()
     X_val = X_val_raw.copy()
 
-    X_train[:, :COORDINATE_FEATURES] = (
-        X_train[:, :COORDINATE_FEATURES] - scaler_mean
-    ) / scaler_std
+    X_train[:, :COORDINATE_FEATURES] = (X_train[:, :COORDINATE_FEATURES] - scaler_mean) / scaler_std
 
-    X_val[:, :COORDINATE_FEATURES] = (
-        X_val[:, :COORDINATE_FEATURES] - scaler_mean
-    ) / scaler_std
+    X_val[:, :COORDINATE_FEATURES] = (X_val[:, :COORDINATE_FEATURES] - scaler_mean) / scaler_std
 
     # --------------------------------------------------------
     # Convert to PyTorch tensors
@@ -271,35 +253,17 @@ def main():
         torch.tensor(y_train, dtype=torch.long),
     )
 
-    val_dataset = TensorDataset(
-        torch.tensor(X_val, dtype=torch.float32),
-        torch.tensor(y_val, dtype=torch.long),
-    )
+    val_dataset = TensorDataset(torch.tensor(X_val, dtype=torch.float32),torch.tensor(y_val, dtype=torch.long),)
 
-    train_loader = DataLoader(
-        train_dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=True,
-        num_workers=0,
-        pin_memory=(device.type == "cuda"),
-    )
+    train_loader = DataLoader(train_dataset,batch_size=BATCH_SIZE,shuffle=True,num_workers=0,pin_memory=(device.type == "cuda"),)
 
-    val_loader = DataLoader(
-        val_dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=False,
-        num_workers=0,
-        pin_memory=(device.type == "cuda"),
-    )
+    val_loader = DataLoader(val_dataset,batch_size=BATCH_SIZE,shuffle=False,num_workers=0,pin_memory=(device.type == "cuda"),)
 
     # --------------------------------------------------------
     # Initialize model
     # --------------------------------------------------------
 
-    model = SignSpeakMLP(
-        input_features=INPUT_FEATURES,
-        num_classes=NUM_CLASSES,
-    ).to(device)
+    model = SignSpeakMLP(input_features=INPUT_FEATURES,num_classes=NUM_CLASSES,).to(device)
 
     total_parameters = sum(
         parameter.numel()
@@ -362,21 +326,14 @@ def main():
 
             predictions = outputs.argmax(dim=1)
 
-            train_correct += (
-                predictions == y
-            ).sum().item()
+            train_correct += (predictions == y).sum().item()
 
             train_total += y.size(0)
 
         train_loss = train_loss_total / train_total
         train_accuracy = train_correct / train_total
 
-        val_loss, val_accuracy = evaluate(
-            model,
-            val_loader,
-            criterion,
-            device,
-        )
+        val_loss, val_accuracy = evaluate(model,val_loader,criterion,device,)
 
         history.append({
             "epoch": epoch,
@@ -400,9 +357,7 @@ def main():
             best_val_loss = val_loss
             best_epoch = epoch
 
-            best_state = copy.deepcopy(
-                model.state_dict()
-            )
+            best_state = copy.deepcopy(model.state_dict())
 
             epochs_without_improvement = 0
 
@@ -411,9 +366,7 @@ def main():
 
         if epochs_without_improvement >= PATIENCE:
 
-            print(
-                f"\nEarly stopping at epoch {epoch}."
-            )
+            print(f"\nEarly stopping at epoch {epoch}.")
 
             break
 
@@ -470,9 +423,7 @@ def main():
     # Save training history
     # --------------------------------------------------------
 
-    with HISTORY_PATH.open(
-        "w", encoding="utf-8", newline=""
-    ) as file:
+    with HISTORY_PATH.open("w", encoding="utf-8", newline="") as file:
 
         writer = csv.DictWriter(
             file,
@@ -500,10 +451,7 @@ def main():
 
     print(f"Best epoch: {best_epoch}")
     print(f"Best validation loss: {best_val_loss:.4f}")
-    print(
-        f"Validation accuracy at best epoch: "
-        f"{best_record['val_accuracy'] * 100:.2f}%"
-    )
+    print(f"Validation accuracy at best epoch: "f"{best_record['val_accuracy'] * 100:.2f}%")
 
     print(f"\nCheckpoint: {CHECKPOINT_PATH}")
     print(f"Training history: {HISTORY_PATH}")
