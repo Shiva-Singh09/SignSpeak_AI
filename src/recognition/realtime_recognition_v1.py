@@ -42,7 +42,7 @@ class SignLanguageMLP(nn.Module):
     def forward(self, x):
         return self.network(x)
 
-# LOAD TRAINED MODEL
+# LOADING TRAINED MODEL
 
 def load_model():
 
