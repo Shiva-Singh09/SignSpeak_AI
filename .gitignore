@@ -1,12 +1,1 @@
-﻿.venv/
-cache/
-temp/
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.mypy_cache/
-build/
-.streamlit/secrets.toml
-.env
-.env.*
-!.env.example
+
