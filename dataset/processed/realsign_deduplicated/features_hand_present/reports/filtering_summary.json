@@ -1,0 +1,276 @@
+{
+    "training": {
+        "original_samples": 18183,
+        "retained_samples": 16209,
+        "removed_no_hand_samples": 1974,
+        "class_statistics": {
+            "A": {
+                "total": 700,
+                "retained": 684,
+                "removed": 16
+            },
+            "B": {
+                "total": 700,
+                "retained": 531,
+                "removed": 169
+            },
+            "C": {
+                "total": 700,
+                "retained": 566,
+                "removed": 134
+            },
+            "D": {
+                "total": 700,
+                "retained": 546,
+                "removed": 154
+            },
+            "E": {
+                "total": 699,
+                "retained": 641,
+                "removed": 58
+            },
+            "F": {
+                "total": 700,
+                "retained": 667,
+                "removed": 33
+            },
+            "G": {
+                "total": 700,
+                "retained": 615,
+                "removed": 85
+            },
+            "H": {
+                "total": 699,
+                "retained": 699,
+                "removed": 0
+            },
+            "I": {
+                "total": 699,
+                "retained": 611,
+                "removed": 88
+            },
+            "J": {
+                "total": 701,
+                "retained": 670,
+                "removed": 31
+            },
+            "K": {
+                "total": 682,
+                "retained": 669,
+                "removed": 13
+            },
+            "L": {
+                "total": 700,
+                "retained": 651,
+                "removed": 49
+            },
+            "M": {
+                "total": 700,
+                "retained": 683,
+                "removed": 17
+            },
+            "N": {
+                "total": 700,
+                "retained": 612,
+                "removed": 88
+            },
+            "O": {
+                "total": 700,
+                "retained": 518,
+                "removed": 182
+            },
+            "P": {
+                "total": 700,
+                "retained": 604,
+                "removed": 96
+            },
+            "Q": {
+                "total": 701,
+                "retained": 647,
+                "removed": 54
+            },
+            "R": {
+                "total": 700,
+                "retained": 697,
+                "removed": 3
+            },
+            "S": {
+                "total": 700,
+                "retained": 648,
+                "removed": 52
+            },
+            "T": {
+                "total": 700,
+                "retained": 697,
+                "removed": 3
+            },
+            "U": {
+                "total": 701,
+                "retained": 569,
+                "removed": 132
+            },
+            "V": {
+                "total": 700,
+                "retained": 531,
+                "removed": 169
+            },
+            "W": {
+                "total": 700,
+                "retained": 585,
+                "removed": 115
+            },
+            "X": {
+                "total": 700,
+                "retained": 697,
+                "removed": 3
+            },
+            "Y": {
+                "total": 701,
+                "retained": 665,
+                "removed": 36
+            },
+            "Z": {
+                "total": 700,
+                "retained": 506,
+                "removed": 194
+            }
+        }
+    },
+    "validation": {
+        "original_samples": 2597,
+        "retained_samples": 2284,
+        "removed_no_hand_samples": 313,
+        "class_statistics": {
+            "A": {
+                "total": 100,
+                "retained": 95,
+                "removed": 5
+            },
+            "B": {
+                "total": 100,
+                "retained": 72,
+                "removed": 28
+            },
+            "C": {
+                "total": 100,
+                "retained": 79,
+                "removed": 21
+            },
+            "D": {
+                "total": 100,
+                "retained": 74,
+                "removed": 26
+            },
+            "E": {
+                "total": 100,
+                "retained": 90,
+                "removed": 10
+            },
+            "F": {
+                "total": 100,
+                "retained": 96,
+                "removed": 4
+            },
+            "G": {
+                "total": 100,
+                "retained": 84,
+                "removed": 16
+            },
+            "H": {
+                "total": 100,
+                "retained": 100,
+                "removed": 0
+            },
+            "I": {
+                "total": 100,
+                "retained": 88,
+                "removed": 12
+            },
+            "J": {
+                "total": 100,
+                "retained": 97,
+                "removed": 3
+            },
+            "K": {
+                "total": 97,
+                "retained": 97,
+                "removed": 0
+            },
+            "L": {
+                "total": 100,
+                "retained": 96,
+                "removed": 4
+            },
+            "M": {
+                "total": 100,
+                "retained": 100,
+                "removed": 0
+            },
+            "N": {
+                "total": 100,
+                "retained": 85,
+                "removed": 15
+            },
+            "O": {
+                "total": 100,
+                "retained": 66,
+                "removed": 34
+            },
+            "P": {
+                "total": 100,
+                "retained": 82,
+                "removed": 18
+            },
+            "Q": {
+                "total": 100,
+                "retained": 99,
+                "removed": 1
+            },
+            "R": {
+                "total": 100,
+                "retained": 100,
+                "removed": 0
+            },
+            "S": {
+                "total": 100,
+                "retained": 88,
+                "removed": 12
+            },
+            "T": {
+                "total": 100,
+                "retained": 100,
+                "removed": 0
+            },
+            "U": {
+                "total": 100,
+                "retained": 78,
+                "removed": 22
+            },
+            "V": {
+                "total": 100,
+                "retained": 70,
+                "removed": 30
+            },
+            "W": {
+                "total": 100,
+                "retained": 82,
+                "removed": 18
+            },
+            "X": {
+                "total": 100,
+                "retained": 100,
+                "removed": 0
+            },
+            "Y": {
+                "total": 100,
+                "retained": 96,
+                "removed": 4
+            },
+            "Z": {
+                "total": 100,
+                "retained": 70,
+                "removed": 30
+            }
+        }
+    }
+}

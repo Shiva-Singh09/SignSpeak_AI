@@ -1,0 +1,94 @@
+REALSign DEDUPLICATED DATASET SUMMARY
+=======================================================
+
+Discovered images: 25977
+Unreadable images excluded: 2
+Readable images copied: 25975
+Unique exact-hash groups: 25085
+Exact duplicate groups: 786
+
+Training: 18183 images
+  A: 700
+  B: 700
+  C: 700
+  D: 700
+  E: 699
+  F: 700
+  G: 700
+  H: 699
+  I: 699
+  J: 701
+  K: 682
+  L: 700
+  M: 700
+  N: 700
+  O: 700
+  P: 700
+  Q: 701
+  R: 700
+  S: 700
+  T: 700
+  U: 701
+  V: 700
+  W: 700
+  X: 700
+  Y: 701
+  Z: 700
+
+Validation: 2597 images
+  A: 100
+  B: 100
+  C: 100
+  D: 100
+  E: 100
+  F: 100
+  G: 100
+  H: 100
+  I: 100
+  J: 100
+  K: 97
+  L: 100
+  M: 100
+  N: 100
+  O: 100
+  P: 100
+  Q: 100
+  R: 100
+  S: 100
+  T: 100
+  U: 100
+  V: 100
+  W: 100
+  X: 100
+  Y: 100
+  Z: 100
+
+Testing: 5195 images
+  A: 200
+  B: 200
+  C: 200
+  D: 200
+  E: 200
+  F: 200
+  G: 200
+  H: 200
+  I: 200
+  J: 200
+  K: 195
+  L: 200
+  M: 200
+  N: 200
+  O: 200
+  P: 200
+  Q: 200
+  R: 200
+  S: 200
+  T: 200
+  U: 200
+  V: 200
+  W: 200
+  X: 200
+  Y: 200
+  Z: 200
+
+Groups crossing splits: 0

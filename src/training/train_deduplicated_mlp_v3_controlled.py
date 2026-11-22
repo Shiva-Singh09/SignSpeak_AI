@@ -11,9 +11,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 
-# ============================================================
 # CONFIGURATION
-# ============================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
