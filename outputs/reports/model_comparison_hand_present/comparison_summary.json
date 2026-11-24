@@ -1,0 +1,25 @@
+{
+    "validation_samples": 2284,
+    "validation_dataset": "hand_present",
+    "v1": {
+        "accuracy": 0.9960595446584939,
+        "macro_precision": 0.9960344752880537,
+        "macro_recall": 0.996275552122037,
+        "macro_f1": 0.9961348096856527,
+        "correct": 2275,
+        "incorrect": 9,
+        "samples": 2284
+    },
+    "v2": {
+        "accuracy": 0.9986865148861647,
+        "macro_precision": 0.9987609984517202,
+        "macro_recall": 0.9987104072398191,
+        "macro_f1": 0.9987333528292232,
+        "correct": 2281,
+        "incorrect": 3,
+        "samples": 2284
+    },
+    "accuracy_difference_percentage_points": 0.26269702276707774,
+    "macro_f1_difference_percentage_points": 0.2598543143570442,
+    "architecture_note": "V1 uses Linear-ReLU-BatchNorm-Dropout; V2 uses Linear-BatchNorm-ReLU-Dropout. Therefore this is a model comparison, not an isolated no-hand filtering experiment."
+}
