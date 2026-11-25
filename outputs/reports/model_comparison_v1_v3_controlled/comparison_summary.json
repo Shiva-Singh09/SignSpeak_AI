@@ -1,0 +1,25 @@
+{
+    "validation_samples": 2284,
+    "validation_dataset": "hand_present",
+    "v1": {
+        "accuracy": 0.9960595446584939,
+        "macro_precision": 0.9960344752880537,
+        "macro_recall": 0.996275552122037,
+        "macro_f1": 0.9961348096856527,
+        "correct": 2275,
+        "incorrect": 9,
+        "samples": 2284
+    },
+    "v3": {
+        "accuracy": 0.9982486865148862,
+        "macro_precision": 0.9983763830671047,
+        "macro_recall": 0.9982830568124685,
+        "macro_f1": 0.9983252098366495,
+        "correct": 2280,
+        "incorrect": 4,
+        "samples": 2284
+    },
+    "accuracy_difference_percentage_points": 0.2189141856392296,
+    "macro_f1_difference_percentage_points": 0.21904001509968074,
+    "experiment_note": "V1 and V3 use the same MLP architecture, feature ordering and nominal training configuration. V1 was trained using the original training dataset including no-hand samples. V3 was trained using hand-present samples only. Both models are evaluated on the exact same hand-present validation samples. Each model uses its own training-derived normalization statistics. This comparison evaluates the effect of the changed training data pipeline, although other training-run variability cannot be ruled out."
+}

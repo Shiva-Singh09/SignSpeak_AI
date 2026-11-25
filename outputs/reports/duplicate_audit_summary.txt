@@ -1,0 +1,10 @@
+SIGNSPEAK AI - DUPLICATE AUDIT SUMMARY
+==================================================
+Total images: 25977
+Exact duplicate groups: 787
+Images in exact duplicate groups: 1678
+Near-duplicate pairs: 1402186
+Near-duplicate cross-split pairs: 565647
+Near-duplicate cross-class pairs: 16304
+Unreadable images: 2
+Perceptual hash threshold: 6

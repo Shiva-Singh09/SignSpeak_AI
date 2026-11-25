@@ -1,0 +1,46 @@
+{
+    "Training": {
+        "images_processed": 18183,
+        "images_with_hands": 16209,
+        "images_without_hands": 1974,
+        "unreadable_images": 0,
+        "hand_count_distribution": {
+            "0": 1974,
+            "1": 8428,
+            "2": 7781
+        }
+    },
+    "Validation": {
+        "images_processed": 2597,
+        "images_with_hands": 2284,
+        "images_without_hands": 313,
+        "unreadable_images": 0,
+        "hand_count_distribution": {
+            "0": 313,
+            "1": 1218,
+            "2": 1066
+        }
+    },
+    "Testing": {
+        "images_processed": 5195,
+        "images_with_hands": 4656,
+        "images_without_hands": 539,
+        "unreadable_images": 0,
+        "hand_count_distribution": {
+            "0": 539,
+            "1": 2455,
+            "2": 2201
+        }
+    },
+    "overall": {
+        "total_images_processed": 25975,
+        "images_with_hands": 23149,
+        "images_without_hands": 2826,
+        "unreadable_images": 0,
+        "hand_count_distribution": {
+            "0": 2826,
+            "1": 12101,
+            "2": 11048
+        }
+    }
+}
